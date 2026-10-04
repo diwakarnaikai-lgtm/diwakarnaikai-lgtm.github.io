@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio of Diwakar Naik, B.Tech Computer Science and Engineering student at REVA University.">
+  <title>Diwakar Naik | CSE Student Portfolio</title>
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #0d1324;
+      --card: rgba(17, 25, 45, .72);
+      --card-solid: #11192d;
+      --text: #f5f7ff;
+      --muted: #a7b0c7;
+      --line: rgba(255,255,255,.09);
+      --blue: #5b8cff;
+      --purple: #9b6cff;
+      --cyan: #57d9ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.35);
+      --radius: 20px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(91,140,255,.12), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(155,108,255,.10), transparent 26%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+      z-index: -1;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+
+    /* Navigation */
+    .nav-wrap {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7,11,22,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      min-height: 72px; display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { font-weight: 800; letter-spacing: -.02em; }
+    .brand span { color: var(--blue); }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .9rem; transition: .25s; }
+    .nav-links a:hover { color: var(--text); }
+    .menu { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: grid; place-items: center; padding: 120px 0 70px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 70px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; padding: 8px 12px;
+      border: 1px solid rgba(91,140,255,.28); border-radius: 999px;
+      color: #c8d6ff; background: rgba(91,140,255,.08); font-size: .82rem; font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan); }
+    h1 { font-size: clamp(3rem, 7vw, 5.8rem); line-height: .98; letter-spacing: -.06em; max-width: 760px; }
+    .gradient { background: linear-gradient(100deg, var(--blue), var(--purple), var(--cyan)); -webkit-background-clip: text; color: transparent; }
+    .hero-copy { margin-top: 25px; color: var(--muted); max-width: 650px; font-size: 1.08rem; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 12px 18px; border-radius: 12px; border: 1px solid var(--line);
+      font-weight: 750; font-size: .92rem; transition: transform .25s, border-color .25s, background .25s;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(91,140,255,.5); }
+    .btn-primary { background: linear-gradient(135deg, #477cf0, #7955db); border-color: transparent; }
+    .btn-secondary { background: rgba(255,255,255,.04); color: #d9deed; }
+
+    .hero-card {
+      position: relative; padding: 28px; border: 1px solid var(--line); border-radius: 26px;
+      background: linear-gradient(145deg, rgba(17,25,45,.9), rgba(12,18,34,.68));
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-card::after {
+      content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%;
+      right: -80px; top: -80px; background: rgba(91,140,255,.17); filter: blur(20px);
+    }
+    .terminal-top { display: flex; gap: 7px; margin-bottom: 25px; }
+    .terminal-top i { width: 9px; height: 9px; border-radius: 50%; background: #3a455f; }
+    .code { font-family: "SFMono-Regular", Consolas, monospace; font-size: .86rem; color: #cbd5ef; }
+    .code .key { color: #83a9ff; }
+    .code .value { color: #8fe3c1; }
+    .code .accent { color: #c08cff; }
+
+    /* Sections */
+    section { padding: 100px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 40px; }
+    .kicker { color: var(--blue); font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 800; }
+    h2 { margin-top: 8px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.04em; }
+    .section-intro { color: var(--muted); max-width: 550px; }
+
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 24px; }
+    .card {
+      border: 1px solid var(--line); background: var(--card); border-radius: var(--radius);
+      padding: 28px; box-shadow: 0 18px 50px rgba(0,0,0,.16);
+    }
+    .profile-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 300px; }
+    .initials {
+      width: 68px; height: 68px; border-radius: 18px; display: grid; place-items: center;
+      font-size: 1.3rem; font-weight: 900; background: linear-gradient(135deg, rgba(91,140,255,.25), rgba(155,108,255,.25));
+      border: 1px solid rgba(91,140,255,.3);
+    }
+    .profile-meta { margin-top: 24px; }
+    .profile-meta strong { display: block; font-size: 1.2rem; }
+    .profile-meta span { color: var(--muted); font-size: .92rem; }
+    .about-text { color: #c2c9db; font-size: 1rem; }
+
+    .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project { min-height: 270px; display: flex; flex-direction: column; }
+    .project-number { color: var(--blue); font-weight: 900; font-size: .82rem; }
+    .project h3 { margin: 14px 0 10px; font-size: 1.3rem; }
+    .project p { color: var(--muted); font-size: .94rem; }
+    .project-link { margin-top: auto; padding-top: 22px; color: #b9c9ff; font-weight: 750; font-size: .9rem; }
+    .project-link:hover { color: white; }
+
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill {
+      padding: 10px 14px; border: 1px solid var(--line); background: rgba(255,255,255,.035);
+      border-radius: 999px; color: #d4daea; font-size: .88rem; transition: .25s;
+    }
+    .skill:hover { transform: translateY(-2px); border-color: rgba(91,140,255,.4); }
+
+    .journey { position: relative; display: grid; gap: 16px; }
+    .journey::before { content: ""; position: absolute; left: 19px; top: 22px; bottom: 22px; width: 1px; background: linear-gradient(var(--blue), rgba(155,108,255,.08)); }
+    .step { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 18px; align-items: start; }
+    .step-dot { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; z-index: 1; background: var(--bg-soft); border: 1px solid rgba(91,140,255,.4); color: #9db9ff; font-weight: 800; }
+    .step-card { padding: 20px 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(17,25,45,.58); }
+    .step-card h3 { font-size: 1.08rem; }
+    .step-card p { color: var(--muted); font-size: .91rem; margin-top: 4px; }
+
+    .goal {
+      display: grid; grid-template-columns: 1fr .75fr; gap: 24px; align-items: stretch;
+    }
+    .goal-main { padding: 34px; border-radius: 22px; background: linear-gradient(135deg, rgba(65,112,228,.18), rgba(135,82,207,.13)); border: 1px solid rgba(91,140,255,.22); }
+    .goal-main p { margin-top: 15px; color: #c6cde0; max-width: 680px; }
+    .goal-points { display: grid; gap: 12px; }
+    .goal-point { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.03); }
+    .goal-point strong { display: block; }
+    .goal-point span { color: var(--muted); font-size: .87rem; }
+
+    .contact-card { text-align: center; padding: 48px 28px; }
+    .contact-card p { color: var(--muted); max-width: 620px; margin: 14px auto 25px; }
+    footer { padding: 28px 0 40px; color: #747e97; font-size: .82rem; border-top: 1px solid var(--line); }
+    footer .container { display: flex; justify-content: space-between; gap: 20px; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 850px) {
+      .hero-grid, .about-grid, .goal { grid-template-columns: 1fr; }
+      .hero { padding-top: 115px; }
+      .hero-card { max-width: 650px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(var(--max), calc(100% - 28px)); }
+      .nav-links {
+        display: none; position: absolute; top: 72px; left: 14px; right: 14px; flex-direction: column;
+        padding: 18px; background: rgba(10,15,28,.97); border: 1px solid var(--line); border-radius: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .menu { display: block; }
+      .projects { grid-template-columns: 1fr; }
+      section { padding: 78px 0; }
+      .section-head { display: block; }
+      .section-intro { margin-top: 14px; }
+      footer .container { flex-direction: column; }
+      h1 { font-size: clamp(2.8rem, 16vw, 4.4rem); }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="container">
+      <a class="brand" href="#home">DN<span>.</span></a>
+      <button class="menu" aria-label="Open navigation">☰</button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#goal">Career Goal</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="dot"></span> 3rd Semester B.Tech CSE Student</div>
+          <h1>Building skills.<br><span class="gradient">Solving problems.</span></h1>
+          <p class="hero-copy">
+            I’m <strong>Diwakar Naik</strong>, a Computer Science and Engineering student at REVA University,
+            focused on programming, problem solving, Git & GitHub, cloud computing and DevOps.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Explore My Work ↓</a>
+            <a class="btn btn-secondary" href="https://github.com/diwakarnaikai-lgtm/leetcode-solutions" target="_blank" rel="noopener">View GitHub ↗</a>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="terminal-top"><i></i><i></i><i></i></div>
+          <div class="code">
+            <div><span class="key">const</span> student = {</div>
+            <div>&nbsp;&nbsp;<span class="key">name:</span> <span class="value">"Diwakar Naik"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">course:</span> <span class="value">"B.Tech CSE"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">semester:</span> <span class="accent">3</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">focus:</span> <span class="value">"Cloud + DevOps"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">learning:</span> <span class="value">"Build & Solve"</span></div>
+            <div>};</div>
+            <br>
+            <div><span class="accent">→</span> practical learning in progress...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="kicker">01 / About</div><h2>About me</h2></div>
+          <p class="section-intro">A concise look at who I am and how I approach technical learning.</p>
+        </div>
+        <div class="about-grid">
+          <div class="card profile-card reveal">
+            <div class="initials">DN</div>
+            <div class="profile-meta">
+              <strong>Diwakar Naik</strong>
+              <span>B.Tech Computer Science and Engineering · 3rd Semester</span><br>
+              <span>REVA University</span>
+            </div>
+          </div>
+          <div class="card reveal">
+            <p class="about-text">
+              I am a 3rd Semester B.Tech CSE student developing my skills in programming, problem solving,
+              Git and GitHub, cloud computing and DevOps. I learn by building practical projects,
+              solving programming problems and documenting my technical progress.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="kicker">02 / Projects</div><h2>Projects & learning activities</h2></div>
+          <p class="section-intro">Hands-on activities that are helping me build a practical technical foundation.</p>
+        </div>
+        <div class="projects">
+          <article class="card project reveal">
+            <span class="project-number">01</span>
+            <h3>Hello World / Development Environment</h3>
+            <p>I set up my development environment using Visual Studio Code and created a basic Hello World project. This helped me understand the development environment and running a simple program.</p>
+          </article>
+          <article class="card project reveal">
+            <span class="project-number">02</span>
+            <h3>Git and GitHub</h3>
+            <p>I learned the fundamentals of Git and GitHub, including repositories, version control and committing project changes. This helped me understand how source code can be tracked, stored and shared.</p>
+          </article>
+          <article class="card project reveal">
+            <span class="project-number">03</span>
+            <h3>GitLens and Live Share</h3>
+            <p>I explored GitLens and Live Share in Visual Studio Code to understand code collaboration, development workflows and version history.</p>
+          </article>
+          <article class="card project reveal">
+            <span class="project-number">04</span>
+            <h3>LeetCode Solutions Portfolio</h3>
+            <p>I created a structured GitHub repository for my LeetCode problem-solving practice. The repository contains programming solutions organized by topic along with documentation and a README.</p>
+            <a class="project-link" href="https://github.com/diwakarnaikai-lgtm/leetcode-solutions" target="_blank" rel="noopener">Open repository ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="kicker">03 / Skills</div><h2>Technical toolkit</h2></div>
+          <p class="section-intro">Tools and fundamentals I am currently learning and practicing.</p>
+        </div>
+        <div class="card reveal">
+          <div class="skills">
+            <span class="skill">C Programming</span>
+            <span class="skill">C++ Programming</span>
+            <span class="skill">Problem Solving</span>
+            <span class="skill">Algorithms & Fundamentals</span>
+            <span class="skill">Git</span>
+            <span class="skill">GitHub</span>
+            <span class="skill">Visual Studio Code</span>
+            <span class="skill">GitLens</span>
+            <span class="skill">Live Share</span>
+            <span class="skill">LeetCode</span>
+            <span class="skill">Basic Cloud Computing</span>
+            <span class="skill">Basic DevOps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="kicker">04 / Learning Journey</div><h2>Learning by doing</h2></div>
+          <p class="section-intro">A simple progression from development setup to structured problem-solving practice.</p>
+        </div>
+        <div class="journey">
+          <div class="step reveal">
+            <div class="step-dot">01</div>
+            <div class="step-card"><h3>Development environment</h3><p>Set up Visual Studio Code and created a basic Hello World project.</p></div>
+          </div>
+          <div class="step reveal">
+            <div class="step-dot">02</div>
+            <div class="step-card"><h3>Version control</h3><p>Learned Git and GitHub fundamentals, repositories, commits and version tracking.</p></div>
+          </div>
+          <div class="step reveal">
+            <div class="step-dot">03</div>
+            <div class="step-card"><h3>Collaboration workflow</h3><p>Explored GitLens and Live Share to understand collaboration and development workflows.</p></div>
+          </div>
+          <div class="step reveal">
+            <div class="step-dot">04</div>
+            <div class="step-card"><h3>Problem-solving portfolio</h3><p>Organized LeetCode solutions by topic and documented the work in GitHub.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="goal">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="kicker">05 / Career Goal</div><h2>Where I’m heading</h2></div>
+        </div>
+        <div class="goal">
+          <div class="goal-main reveal">
+            <h3>Cloud Computing & DevOps</h3>
+            <p>
+              My career goal is to build strong practical skills in Cloud Computing and DevOps.
+              I want to learn cloud platforms, DevOps tools and system fundamentals, gain internship
+              experience and build real-world projects.
+            </p>
+          </div>
+          <div class="goal-points">
+            <div class="goal-point reveal"><strong>Cloud platforms</strong><span>Build a stronger foundation in cloud technologies.</span></div>
+            <div class="goal-point reveal"><strong>DevOps tools</strong><span>Develop practical familiarity with DevOps workflows and tools.</span></div>
+            <div class="goal-point reveal"><strong>Real-world projects</strong><span>Turn learning into practical projects and documented work.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="card contact-card reveal">
+          <div class="kicker">06 / Contact</div>
+          <h2>Let’s connect</h2>
+          <p>
+            For my current technical work and problem-solving practice, visit my GitHub repository.
+          </p>
+          <a class="btn btn-primary" href="https://github.com/diwakarnaikai-lgtm/leetcode-solutions" target="_blank" rel="noopener">GitHub Repository ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Diwakar Naik</span>
+      <span>B.Tech CSE · REVA University</span>
+    </div>
+  </footer>
+
+  <script>
+    const menu = document.querySelector('.menu');
+    const nav = document.querySelector('.nav-links');
+
+    menu.addEventListener('click', () => nav.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
